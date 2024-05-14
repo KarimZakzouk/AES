@@ -1,0 +1,29 @@
+module mixColumns(input [127:0] state,output  [127:0]out);
+
+wire [127:0]temp;
+
+
+genvar i;		//no generate for loop
+generate
+
+for ( i=  0 ; i <=24 ;i=i+8) begin: loop
+
+xtime i0c(state[127-4*i:120-4*i],temp[127-4*i:120-4*i]);
+xtime i1c(state[119-4*i:112-4*i],temp[119-4*i:112-4*i]);
+xtime i2c(state[111-4*i:104-4*i],temp[111-4*i:104-4*i]);
+xtime i3c(state[103-4*i: 96-4*i],temp[103-4*i: 96-4*i]);
+
+assign out[127-4*i:120-4*i]=temp[127-4*i:120-4*i]^(state[119-4*i:112-4*i]^temp[119-4*i:112-4*i])^state[111-4*i:104-4*i]^state[103-4*i:96-4*i] ;
+
+assign out[119-4*i:112-4*i]= state[127-4*i:120-4*i]^ temp[119-4*i:112-4*i]^(state[111-4*i:104-4*i]^temp[111-4*i:104-4*i])^state[103-4*i:96-4*i];
+
+assign out[111-4*i:104-4*i]= state[127-4*i:120-4*i]^state[119-4*i:112-4*i]^ temp[111-4*i:104-4*i]^(state[103-4*i:96-4*i]^temp[103-4*i:96-4*i]);	
+	
+assign out[103-4*i:96-4*i]=(state[127-4*i:120-4*i]^temp[127-4*i:120-4*i])^state[119-4*i:112-4*i]^state[111-4*i:104-4*i]^temp[103-4*i:96-4*i];
+
+end
+endgenerate
+
+
+
+endmodule

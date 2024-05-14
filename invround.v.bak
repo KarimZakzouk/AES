@@ -1,0 +1,14 @@
+module invround(
+input [127:0] datain,
+output [127:0] dataout,
+input [127:0] key
+);
+
+wire [127:0] sa;
+wire [127:0] ss;
+wire [127:0] ma;
+invShiftBytes shi(datain,sa);
+invsubBytes s(sa,ss);
+Addroundkey am(ss,key,ma);
+invMixColumns md(ma,dataout);
+endmodule

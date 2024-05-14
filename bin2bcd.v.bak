@@ -1,0 +1,14 @@
+module xtime(input  [7:0] x , output  [7:0] x2);	//no module
+
+  
+
+wire[7:0] temp;
+assign temp=8'h1b;
+ wire [7:0]mag;
+assign mag = x<<1;  
+assign x2=
+  (x[7])?mag^temp:
+ mag ;
+  
+
+endmodule

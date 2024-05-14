@@ -1,0 +1,15 @@
+module round(
+input [127:0] datain,
+output [127:0] dataout,
+input [127:0] key
+);
+wire [127:0] ma;
+wire [127:0] sa;
+wire [127:0] ss;
+
+subBytes s(datain,ss);
+ShiftBytes shi(ss,sa);
+mixColumns mimi(sa,ma);
+Addroundkey a(ma,key,dataout);
+
+endmodule

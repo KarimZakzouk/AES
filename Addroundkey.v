@@ -1,0 +1,9 @@
+module Addroundkey(data,key,out);
+input [127:0] data;
+input [127:0] key;
+output reg [127:0] out;
+
+always @(*) begin
+out <= data ^ key;
+end
+endmodule
